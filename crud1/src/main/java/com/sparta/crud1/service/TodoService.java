@@ -6,7 +6,6 @@ import com.sparta.crud1.entity.Todo;
 import com.sparta.crud1.repository.TodoRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +20,14 @@ public class TodoService {
     todoRepository.save(todo);
   }
 
+  public List<TodoResponseDto> getTodo() {
+    List<TodoResponseDto> responseDtos = new ArrayList<>();
+    for (Todo todo : todoRepository.findAll()) {
+      responseDtos.add(new TodoResponseDto(
+          todo.getContent()
+      ));
+    }
 
+    return responseDtos;
+  }
 }

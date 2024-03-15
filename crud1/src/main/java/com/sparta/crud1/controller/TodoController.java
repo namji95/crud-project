@@ -27,6 +27,11 @@ public class TodoController {
     return "게시글 생성 성공";
   }
 
+  @GetMapping
+  public ResponseEntity<List<TodoResponseDto>> getTodo () {
+    List<TodoResponseDto> responseDto = todoService.getTodo();
 
+    return new ResponseEntity<>(responseDto, HttpStatus.OK);
+  }
 
 }
