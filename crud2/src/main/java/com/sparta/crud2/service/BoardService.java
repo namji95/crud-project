@@ -46,4 +46,12 @@ public class BoardService {
 
     return responseDto;
   }
+
+  @Transactional
+  public void updateBoard(BoardRequestDto requestDto, Long boardId) {
+    Board board = boardRepository.findById(boardId).orElseThrow(() ->
+        new IllegalArgumentException("선택한 게시글은 존재하지 않습니다."));
+
+    board.updateBoard(requestDto);
+  }
 }

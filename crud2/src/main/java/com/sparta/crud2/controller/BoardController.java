@@ -47,4 +47,13 @@ public class BoardController {
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
   }
 
+  @PutMapping("/{boardId}")
+  public String updateBoard (
+      @RequestBody BoardRequestDto requestDto,
+      @PathVariable Long boardId) {
+    boardService.updateBoard(requestDto, boardId);
+
+    return "게시글이 수정되었습니다.";
+  }
+
 }
