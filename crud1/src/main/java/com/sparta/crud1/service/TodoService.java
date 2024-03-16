@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +17,13 @@ public class TodoService {
 
   private final TodoRepository todoRepository;
 
+  @Transactional
   public void createTodo(TodoRequestDto requestDto) {
     Todo todo = new Todo(requestDto);
     todoRepository.save(todo);
   }
 
+  @Transactional(readOnly = true)
   public List<TodoResponseDto> getTodoList() {
     List<TodoResponseDto> responseDtos = new ArrayList<>();
     for (Todo todo : todoRepository.findAll()) {
@@ -32,6 +35,7 @@ public class TodoService {
     return responseDtos;
   }
 
+  @Transactional(readOnly = true)
   public TodoResponseDto getTodo(Long todoId) {
     Optional<Todo> todo = todoRepository.findById(todoId);
     if (todo.isEmpty()) {
@@ -43,6 +47,7 @@ public class TodoService {
     return responseDto;
   }
 
+  @Transactional
   public void updateTodo(
       Long todoId,
       TodoRequestDto requestDto) {
@@ -52,5 +57,8 @@ public class TodoService {
     todo.updateTodo(requestDto);
   }
 
-
+  @Transactional
+  public void deleteTodo(Long todoId) {
+    todoRepository.deleteById(todoId);
+  }
 }

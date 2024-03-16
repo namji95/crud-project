@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,12 +45,20 @@ public class TodoController {
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
   }
 
-  @PutMapping("{todoId}")
+  @PutMapping("/{todoId}")
   public String updateTodo (
       @PathVariable Long todoId,
       @RequestBody TodoRequestDto requestDto) {
     todoService.updateTodo(todoId, requestDto);
 
     return "일정이 수정되었습니다.";
+  }
+
+  @DeleteMapping("/{todoId}")
+  public String deleteTodo (
+      @PathVariable Long todoId) {
+    todoService.deleteTodo(todoId);
+
+    return "일정이 삭제되었습니다.";
   }
 }
