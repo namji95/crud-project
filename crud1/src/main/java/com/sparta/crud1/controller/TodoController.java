@@ -24,21 +24,21 @@ public class TodoController {
   private final TodoService todoService;
 
   @PostMapping
-  public String createTodo (@RequestBody TodoRequestDto requestDto) {
+  public String createTodo(@RequestBody TodoRequestDto requestDto) {
     todoService.createTodo(requestDto);
 
     return "게시글 생성 성공";
   }
 
   @GetMapping
-  public ResponseEntity<List<TodoResponseDto>> getTodoList () {
+  public ResponseEntity<List<TodoResponseDto>> getTodoList() {
     List<TodoResponseDto> responseDto = todoService.getTodoList();
 
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
   }
 
   @GetMapping("/{todoId}")
-  public ResponseEntity<TodoResponseDto> getTodo (
+  public ResponseEntity<TodoResponseDto> getTodo(
       @PathVariable Long todoId) {
     TodoResponseDto responseDto = todoService.getTodo(todoId);
 
@@ -46,7 +46,7 @@ public class TodoController {
   }
 
   @PutMapping("/{todoId}")
-  public String updateTodo (
+  public String updateTodo(
       @PathVariable Long todoId,
       @RequestBody TodoRequestDto requestDto) {
     todoService.updateTodo(todoId, requestDto);
@@ -55,7 +55,7 @@ public class TodoController {
   }
 
   @DeleteMapping("/{todoId}")
-  public String deleteTodo (
+  public String deleteTodo(
       @PathVariable Long todoId) {
     todoService.deleteTodo(todoId);
 

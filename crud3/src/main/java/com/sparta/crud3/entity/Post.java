@@ -1,44 +1,37 @@
-package com.sparta.crud2.entity;
+package com.sparta.crud3.entity;
 
-import com.sparta.crud2.dto.BoardRequestDto;
-import jakarta.persistence.Column;
+import com.sparta.crud3.dto.PostRequestDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor
-@Table(name = "boards")
-public class Board {
+@Getter
+@Table(name = "posts")
+public class Post {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
   private String writer;
 
-  @Column(nullable = false)
   private String title;
 
-  @Column(nullable = false)
   private String content;
 
+  private LocalDateTime createdAt;
 
-  public Board(BoardRequestDto requestDto) {
+  public Post(PostRequestDto requestDto) {
     this.writer = requestDto.getWriter();
     this.title = requestDto.getTitle();
     this.content = requestDto.getContent();
-  }
-
-  public void updateBoard(BoardRequestDto requestDto) {
-    this.writer = requestDto.getWriter();
-    this.title = requestDto.getTitle();
-    this.content = requestDto.getContent();
+    this.createdAt = LocalDateTime.now();
   }
 }

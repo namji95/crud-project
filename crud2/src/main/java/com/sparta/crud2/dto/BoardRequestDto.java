@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class BoardRequestDto {
+
   @NotBlank
   private String writer;
   @NotBlank

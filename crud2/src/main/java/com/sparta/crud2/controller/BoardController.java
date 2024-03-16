@@ -5,7 +5,6 @@ import com.sparta.crud2.dto.BoardResponseDto;
 import com.sparta.crud2.service.BoardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.el.util.ReflectionUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +24,7 @@ public class BoardController {
   private final BoardService boardService;
 
   @PostMapping
-  public String createBoard (
+  public String createBoard(
       @RequestBody BoardRequestDto requestDto) {
     boardService.createBoard(requestDto);
 
@@ -33,7 +32,7 @@ public class BoardController {
   }
 
   @GetMapping
-  public ResponseEntity<List<BoardResponseDto>> getBoardList () {
+  public ResponseEntity<List<BoardResponseDto>> getBoardList() {
     List<BoardResponseDto> responseDtos = boardService.getBoardList();
 
     return new ResponseEntity<>(responseDtos, HttpStatus.OK);
@@ -48,7 +47,7 @@ public class BoardController {
   }
 
   @PutMapping("/{boardId}")
-  public String updateBoard (
+  public String updateBoard(
       @RequestBody BoardRequestDto requestDto,
       @PathVariable Long boardId) {
     boardService.updateBoard(requestDto, boardId);
@@ -57,7 +56,7 @@ public class BoardController {
   }
 
   @DeleteMapping("/{boardId}")
-  public String deleteBoard (
+  public String deleteBoard(
       @PathVariable Long boardId) {
     boardService.deleteBoard(boardId);
 

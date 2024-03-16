@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class TodoRequestDto {
+
   @NotBlank
   private String title;
   @NotBlank

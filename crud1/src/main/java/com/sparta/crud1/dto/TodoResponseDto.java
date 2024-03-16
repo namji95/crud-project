@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class TodoResponseDto {
+
   private String content;
 
   public TodoResponseDto(String content) {
