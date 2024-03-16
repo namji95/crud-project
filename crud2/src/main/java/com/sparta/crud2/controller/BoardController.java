@@ -56,4 +56,11 @@ public class BoardController {
     return "게시글이 수정되었습니다.";
   }
 
+  @DeleteMapping("/{boardId}")
+  public String deleteBoard (
+      @PathVariable Long boardId) {
+    boardService.deleteBoard(boardId);
+
+    return "게시글이 삭제되었습니다.";
+  }
 }

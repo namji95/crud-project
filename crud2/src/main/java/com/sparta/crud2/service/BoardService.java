@@ -54,4 +54,9 @@ public class BoardService {
 
     board.updateBoard(requestDto);
   }
+
+  @Transactional
+  public void deleteBoard(Long boardId) {
+    boardRepository.deleteById(boardId);
+  }
 }
