@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,12 +16,14 @@ public class PostService {
 
   private final PostRepository postRepository;
 
+  @Transactional
   public void createPost(PostRequestDto requestDto) {
     Post post = new Post(requestDto);
 
     postRepository.save(post);
   }
 
+  @Transactional
   public List<PostResponseDto> getPostList() {
     List<PostResponseDto> responseDtoList = new ArrayList<>();
     for (Post post : postRepository.findAll()) {
@@ -33,6 +36,7 @@ public class PostService {
     return responseDtoList;
   }
 
+  @Transactional
   public PostResponseDto getPost(Long postId) {
     Post post = postRepository.findById(postId).orElseThrow(() ->
         new IllegalArgumentException("선택한 포스트가 존재하지 않습니다."));
@@ -42,5 +46,18 @@ public class PostService {
         post.getCreatedAt());
 
     return responseDto;
+  }
+
+  @Transactional
+  public void updatePost(PostRequestDto requestDto, Long postId) {
+    Post post = postRepository.findById(postId).orElseThrow(() ->
+        new IllegalArgumentException("선택한 포스트가 존재하지 않습니다."));
+
+    post.updatePost(requestDto);
+  }
+
+  @Transactional
+  public void deletePost(Long postId) {
+    postRepository.deleteById(postId);
   }
 }

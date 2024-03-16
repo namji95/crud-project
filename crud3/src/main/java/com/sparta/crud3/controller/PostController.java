@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +45,23 @@ public class PostController {
     PostResponseDto responseDto = postSerivce.getPost(postId);
 
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
+  }
+
+  @PutMapping("/{postId}")
+  public String updatePost(
+      @RequestBody PostRequestDto requestDto,
+      @PathVariable Long postId) {
+    postSerivce.updatePost(requestDto, postId);
+
+    return "포스트가 수정되었습니다.";
+  }
+
+  @DeleteMapping("/{postId}")
+  public String deletePost (
+      @PathVariable Long postId) {
+    postSerivce.deletePost(postId);
+
+    return "포스트가 삭제되었습닏다ㅣ";
   }
 
 }

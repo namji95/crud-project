@@ -34,4 +34,10 @@ public class Post {
     this.content = requestDto.getContent();
     this.createdAt = LocalDateTime.now();
   }
+
+  public void updatePost(PostRequestDto requestDto) {
+    this.writer = requestDto.getWriter();
+    this.title = requestDto.getTitle();
+    this.content = requestDto.getContent();
+  }
 }
