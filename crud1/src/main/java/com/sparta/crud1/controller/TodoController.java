@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +30,26 @@ public class TodoController {
   }
 
   @GetMapping
-  public ResponseEntity<List<TodoResponseDto>> getTodo () {
-    List<TodoResponseDto> responseDto = todoService.getTodo();
+  public ResponseEntity<List<TodoResponseDto>> getTodoList () {
+    List<TodoResponseDto> responseDto = todoService.getTodoList();
 
     return new ResponseEntity<>(responseDto, HttpStatus.OK);
   }
 
+  @GetMapping("/{todoId}")
+  public ResponseEntity<TodoResponseDto> getTodo (
+      @PathVariable Long todoId) {
+    TodoResponseDto responseDto = todoService.getTodo(todoId);
+
+    return new ResponseEntity<>(responseDto, HttpStatus.OK);
+  }
+
+  @PutMapping("{todoId}")
+  public String updateTodo (
+      @PathVariable Long todoId,
+      @RequestBody TodoRequestDto requestDto) {
+    todoService.updateTodo(todoId, requestDto);
+
+    return "일정이 수정되었습니다.";
+  }
 }
