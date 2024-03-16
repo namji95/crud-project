@@ -23,6 +23,7 @@ public class CommentService {
     commentRepository.save(comment);
   }
 
+  @Transactional(readOnly = true)
   public List<CommentResponseDto> getCommentList() {
     List<Comment> comments = commentRepository.findAll();
     List<CommentResponseDto> responseDtos = comments.stream().map(
@@ -32,6 +33,7 @@ public class CommentService {
     return responseDtos;
   }
 
+  @Transactional(readOnly = true)
   public CommentResponseDto getComment(Long commentId) {
     Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
         new IllegalArgumentException("일치하는 댓글이 없습니다."));
@@ -39,6 +41,17 @@ public class CommentService {
     CommentResponseDto responseDto = new CommentResponseDto(
         comment.getContent(), comment.getCreatedAt());
 
-    return responseDto;2
+    return responseDto;
+  }
+
+  @Transactional
+  public void updateComment(CommentRequestDto requestDto, Long commentId) {
+    Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
+        new IllegalArgumentException("댓글이 존재하지 않습니다.!"));
+    comment.updateComment(requestDto);
+  }
+  @Transactional
+  public void deleteComment(Long commentId) {
+    commentRepository.deleteById(commentId);
   }
 }

@@ -27,4 +27,8 @@ public class Comment {
     this.content = requestDto.getContent();
     this.createdAt = LocalDateTime.now();
   }
+
+  public void updateComment(CommentRequestDto requestDto) {
+    this.content = requestDto.getContent();
+  }
 }
